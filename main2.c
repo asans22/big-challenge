@@ -6,37 +6,35 @@
 
 int main()
 {
-    system("cls");
+    system("cls"); // untuk membersihkan terminal setiap memulai program
 
-    int baris = 0;
-    int kolom = 0;
+    char FileName[20];
+    printf("ketik nama file input : ");// memasukkan  file input 
+    scanf("%s",FileName);
+    //variabel untuk menghitung banyak karakter dan kata
     int karakter = 0;
     int kata = 0;
 
-    ReadLine(&baris, &kolom, &karakter);
-    char string[karakter];
+    ReadCharacter(&karakter,FileName);   // fungsi untuk menghitung jumlah karakter pada file input
+    char string[karakter];// array untuk menyimpan file input
 
-    // printf("%d %d %d",baris,kolom,karakter);
+    // melakukan inputan pada array sebanyak karakter
+    inputCharacter(karakter, string,FileName);
 
-    input_character(baris, kolom, karakter, string);
+    // menghitung jumlah kata yang ada
+    CountWord(&kata,karakter,string);
 
-    // for(int i=0; i<karakter;i++){
-    //  printf("%c",string[i]);
-    // }
-
-    CountWord(&kata, string);
-
-    //  printf("\n%d",kata);
-
+   
+    // variabel menggunakan tipe data yang telah dibuat
     words hasil[kata];
-
+    //melakukan tokenisasi
     token(hasil, string);
+    // mengurutkan poin dan kata
+   bubblesort(hasil, kata);
 
-    bubblesort(hasil, kata);
+    int pilihan;// variabel menampung pilihan user
 
-    int pilihan;
-
-    do
+    do// melakukan perulangan 
     {
         printf("****************MENU*****************\n");
         printf("=====================================\n");
@@ -47,19 +45,21 @@ int main()
         printf("Masukkan pilihan : ");
         scanf("%d", &pilihan);
 
-        if (pilihan == 1)
+        if (pilihan == 1)// jika memilih satu maka file input akan menulis binary
         {
             writeBinary(hasil, kata);
         }
-        if (pilihan == 2)
+        if (pilihan == 2)// akan menulis binary dan membaca
         {
             writeBinary(hasil, kata);
             rb baca[kata];
             readBinary(kata, baca);
         }
-        if (pilihan == 3)
+        if (pilihan == 3)// keluar dari program
         {
             break;
         }
     } while (pilihan != 3);
+
+    return 0;
 }
