@@ -11,10 +11,10 @@ typedef struct readbinary{
     int panjangKata;
 }rb;
 
-void input_character(int baris, int kolom, int karakter, char *string);
-void ReadLine(int *baris, int *kolom, int *karakter);
+void ReadCharacter(int *karakter,char *FileName);
+void inputCharacter(int karakter, char *string,char *FileName);
 void token(words hasil[], char *string);
-void CountWord(int *kata, char *string);
+void CountWord(int *kata, int karakter, char *string);
 int scoring(char *token);
 void bubblesort(words hasil[],int kata);
 void writeBinary(words hasil[],int kata);
