@@ -3,40 +3,32 @@
 #include "header.h"
 #include <string.h>
 
-void input_character(int baris, int kolom, int karakter, char *string)
+void inputCharacter(int karakter, char *string,char *FileName)
 {
-    char array[baris][kolom];
+    
     FILE *fp;
 
-    fp = fopen( "./assets/input.txt", "r");
+    fp = fopen(FileName, "r");
 
     int i = 0;
-    
-    while (fgets(array[i], kolom * sizeof(int), fp) != NULL)
-    {
-        i++;
-    }
-    int z = 0;
-
-    for (int j = 0; j < baris; j++)
-    {
-        for (int k = 0; k < kolom; k++)
-        {
-            if (array[j][k] == '\0')
-            {
-                break;
-            }else if (isalpha(array[j][k]) || isdigit(array[j][k]) )
-            {
-                string[z] = array[j][k];
-                string[z] = tolower(string[z]);
-                z++;
-            }else 
-            {
-                string[z] =' '; 
-                z++;
-            }
+   char input;
+    while((input = fgetc(fp))!= EOF){ // melakukan perulangan sampai EOF
+        if(isalpha(input)||isdigit(input)){ // karakter yang diinputkan hanya alfabet dan angka
+            string[i] = input;
+            string[i]= tolower (string[i]);// karakter alfabet diubah seluruhnya ke huruf kecil
+            i++;
+        }else if(ispunct(input)){// mengganti  tanda baca dengan spasi
+            string[i]= 32;
+            i++;
+        }else{
+            string[i]= 32;// selain syarat diatas seluruhnya diubah menjasi spasi
+            i++;
         }
+
+        
     }
+
+    
 
     fclose(fp);
 }
